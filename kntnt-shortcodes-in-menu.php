@@ -17,11 +17,8 @@ namespace Kntnt\Shortcodes_In_Menu;
 defined( 'ABSPATH' ) && new Plugin;
 
 class Plugin {
-	
-	private static $shortcode_regex;
 
 	public function __construct() {
-		$this->shortcode_regex = get_shortcode_regex();
 		add_filter( 'walker_nav_menu_start_el', [ $this, 'menu_item' ], 20, 4 );
 	}
 
@@ -33,7 +30,8 @@ class Plugin {
 	}
 
 	private function has_shortcode( $shortcode ) {
-		return preg_match( "/^{$this->shortcode_regex}/$", $shortcode );
+		$regex = get_shortcode_regex();
+		return preg_match( "/^{$regex}/$", $shortcode );
 	}
 
 }
